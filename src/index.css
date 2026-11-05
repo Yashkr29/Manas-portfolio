@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink-950: #140708;
+  --color-ink-900: #1c0b0d;
+  --color-ink-800: #2a1215;
+  --color-line: #3f1d21;
+  --color-maroon: #8e1f24;
+  --color-maroon-hi: #b3343a;
+  --color-straw: #e3ad4f;
+  --color-cream: #f6ece1;
+  --color-cream-muted: #cdb8ac;
+
+  --font-display: "Fraunces", Georgia, serif;
+  --font-sans: "Manrope", system-ui, sans-serif;
+
+  --animate-marquee: marquee 38s linear infinite;
+  @keyframes marquee {
+    to { transform: translateX(-50%); }
+  }
+}
+
+@layer base {
+  html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+  body {
+    @apply bg-ink-950 text-cream font-sans antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection { background: var(--color-maroon); color: var(--color-cream); }
+  :focus-visible { outline: 2px solid var(--color-straw); outline-offset: 3px; border-radius: 6px; }
+}
+
+@utility wrap { @apply mx-auto w-full max-w-[1320px] px-5 sm:px-8 lg:px-12; }
+@utility display { @apply font-display font-semibold tracking-[-0.02em] leading-[1.02]; }
+@utility btn {
+  @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-6 text-[15px] font-semibold
+    transition-[transform,background-color,border-color,color] duration-200 ease-out
+    hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98];
+}
+@utility btn-primary { @apply btn bg-maroon text-cream hover:bg-maroon-hi; }
+@utility btn-ghost { @apply btn border border-cream/40 text-cream hover:border-cream hover:bg-cream/5; }
+@utility icon-btn {
+  @apply grid size-11 place-items-center rounded-xl border border-maroon-hi/60 bg-maroon/80 text-cream
+    transition-[transform,background-color] duration-200 hover:-translate-y-0.5 hover:bg-maroon-hi;
+}
+@utility field {
+  @apply w-full rounded-xl border border-line bg-ink-800 px-4 py-3 text-cream placeholder:text-cream-muted/60
+    outline-none transition-colors focus:border-straw;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .animate-marquee { animation: none; }
+}
